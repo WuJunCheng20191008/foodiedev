@@ -9,6 +9,7 @@ import com.imooc.utils.JsonUtils;
 import com.imooc.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.catalina.ssi.ResponseIncludeWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -103,5 +104,16 @@ public class PassportController {
         userResult.setUpdatedTime(null);
         userResult.setBirthday(null);
         return userResult;
+    }
+    @ApiOperation(value = "用户退出登录",notes = "用户退出登录",httpMethod = "POST")
+    @PostMapping("/logout")
+    public IMOOCJSONResult logout(@RequestParam String userId,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response){
+        //清除用户的相关信息的cookie
+        CookieUtils.deleteCookie(request, response,"user");
+        //TODO 用户退出登录，需要清空购物车
+        //TODO 分布式会话中需要清楚用户数据
+        return IMOOCJSONResult.ok();
     }
 }
