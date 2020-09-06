@@ -20,7 +20,7 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UsersMapper usersMapper;
-    private final static String USER_FACE="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=false&word=%E5%A4%B4%E5%83%8F&hs=0&pn=1&spn=0&di=221430&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=2690587153%2C2643787055&os=1382266830%2C3405735094&simid=4254794901%2C605894912&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=head&bdtype=0&oriquery=%E5%A4%B4%E5%83%8F&objurl=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F10%2F20170610192627_yhAMN.thumb.700_0.jpeg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B17tpwg2_z%26e3Bv54AzdH3Fks52AzdH3F%3Ft1%3Dbmmmbbncl&gsm=2&islist=&querylist=";
+    private final static String USER_FACE="http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
     /*为了生成唯一主键*/
     @Autowired
     private Sid sid;

@@ -1,5 +1,7 @@
 package com.imooc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Users {
     /**
      * 密码 密码
      */
+//    @JsonIgnore//转化为json字符串的时候，忽略此字段，但是逆向生成的原始model，不建议修改
     private String password;
 
     /**
