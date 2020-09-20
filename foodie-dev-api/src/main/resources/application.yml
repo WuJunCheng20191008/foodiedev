@@ -43,7 +43,6 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml      # mapper映射文件 classpath 指的是所属有resources文件目录
 configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启在控制台输出日志
-
 ############################################################
 #
 # mybatis mapper配置
