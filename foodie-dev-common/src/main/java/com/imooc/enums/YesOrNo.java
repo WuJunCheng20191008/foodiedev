@@ -1,6 +1,6 @@
 package com.imooc.enums;
 /*
-* 性别
+* 是否 枚举
 * */
 public enum YesOrNo {
     NO(0,"否"),
