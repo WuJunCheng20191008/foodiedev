@@ -8,6 +8,7 @@ import com.imooc.pojo.*;
 import com.imooc.pojo.vo.CommentLevelCountsVO;
 import com.imooc.pojo.vo.ItemCommentVO;
 import com.imooc.service.ItemService;
+import com.imooc.utils.DesensitizationUtil;
 import com.imooc.utils.PagedGridResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,8 +97,13 @@ public class ItemServiceImpl implements ItemService {
         * page:第几页
         * pageSize:每页显示条数
         * */
+        //统一拦截sql，为其提供分页功能
         PageHelper.startPage(page,pageSize);
         List<ItemCommentVO> list = itemsMapperCustom.queryItemComments(map);
+        // 使用脱敏工具类 显示昵称
+        for(ItemCommentVO itemCommentVO:list){
+            itemCommentVO.setNickname(DesensitizationUtil.commonDisplay(itemCommentVO.getNickname()));
+        }
         return setterPagedGrid(list,page);
     }
     public PagedGridResult setterPagedGrid(List<?> list,Integer page){
