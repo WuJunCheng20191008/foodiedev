@@ -1,18 +1,16 @@
-package com.imooc.pojo.bo;
+package com.imooc.pojo.vo;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /*
 * 用于接收前端传过来的购物车对象
 * */
-public class ShopcartBo {
+public class ShopcartVo {
     private String itemId;
     private String itemImgUrl;
     private String itemName;
     private String specId;
     private String specName;
-    private Integer buyCounts;
     private String priceDiscount;
     private String priceNormal;
 
@@ -56,14 +54,6 @@ public class ShopcartBo {
         this.specName = specName;
     }
 
-    public Integer getBuyCounts() {
-        return buyCounts;
-    }
-
-    public void setBuyCounts(Integer buyCounts) {
-        this.buyCounts = buyCounts;
-    }
-
     public String getPriceDiscount() {
         return priceDiscount;
     }
@@ -80,17 +70,4 @@ public class ShopcartBo {
         this.priceNormal = priceNormal;
     }
 
-    @Override
-    public String toString() {
-        return "ShopcartBo{" +
-                "itemId='" + itemId + '\'' +
-                ", itemImgUrl='" + itemImgUrl + '\'' +
-                ", itemName='" + itemName + '\'' +
-                ", specId='" + specId + '\'' +
-                ", specName='" + specName + '\'' +
-                ", buyCounts=" + buyCounts +
-                ", priceDiscount='" + priceDiscount + '\'' +
-                ", priceNormal='" + priceNormal + '\'' +
-                '}';
-    }
 }
