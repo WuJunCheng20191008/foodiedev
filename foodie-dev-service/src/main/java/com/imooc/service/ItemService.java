@@ -61,4 +61,14 @@ public interface ItemService {
      */
     public PagedGridResult searchItems(String keywords, String sort,
                                               Integer page, Integer pageSize);
+    /**
+     * 搜索商品列表
+     * @param catId
+     * @param sort
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public PagedGridResult searchItemsByThirdCatId(Integer catId, String sort,
+                                              Integer page, Integer pageSize);
 }
