@@ -72,6 +72,8 @@ public class PassportController {
         userResult = setNullProperty(userResult);
         //设置cookie
         CookieUtils.setCookie(request,response,"user", JsonUtils.objectToJson(userResult),true);
+        //TODO 生成用户token，存入redis会话
+        //TODO 同步购物车数据
         return IMOOCJSONResult.ok();
     }
     @ApiOperation(value = "用户登录",notes = "用户登录",httpMethod = "POST")
@@ -94,6 +96,8 @@ public class PassportController {
         userResult = setNullProperty(userResult);
         //设置cookie 最后一个参数设置加密
         CookieUtils.setCookie(request,response,"user", JsonUtils.objectToJson(userResult),true);
+        //TODO 生成用户token，存入redis会话
+        //TODO 同步购物车数据
         return IMOOCJSONResult.ok(userResult);
     }
     private Users setNullProperty(Users userResult){
