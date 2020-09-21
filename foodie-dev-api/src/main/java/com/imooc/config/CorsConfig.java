@@ -14,9 +14,9 @@ public class CorsConfig {
     public CorsFilter corsFilter(){
         //添加cors配置信息
         CorsConfiguration config=new CorsConfiguration();
-        //配置可以哦、跨域的信息
+        //配置可以跨域的信息
         config.addAllowedOrigin("http://localhost:8080");
-        //设置是否发送cookie信息
+        //设置是否允许发送cookie信息
         config.setAllowCredentials(true);
         //设置允许请求的方式
         config.addAllowedMethod("*");

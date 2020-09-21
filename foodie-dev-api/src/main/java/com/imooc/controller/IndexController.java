@@ -66,7 +66,7 @@ public class IndexController {
             @ApiParam(name = "rootCatId",value = "一级分类id",required = true)
             @PathVariable Integer rootCatId){
         if(rootCatId==null){
-            return IMOOCJSONResult.errorMsg("分类存在");
+            return IMOOCJSONResult.errorMsg("分类不存在");
         }
         List<NewItemsVO> list = categoryService.getSixNewItemsLazy(rootCatId);
         return IMOOCJSONResult.ok(list);
