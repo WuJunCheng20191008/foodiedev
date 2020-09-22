@@ -91,4 +91,19 @@ public class AddressController {
         }
         return IMOOCJSONResult.ok();
     }
+    @ApiOperation(value = "用户修改地址",notes = "用户修改地址",httpMethod = "POST")
+    @PostMapping("/update")
+    public IMOOCJSONResult update(
+            @ApiParam(name = "addressBo",value = "地址业务对象",required = true)
+            @RequestBody AddressBo addressBo){
+        if(StringUtils.isBlank(addressBo.getAddressId())){
+            IMOOCJSONResult.errorMsg("修改地址错误：addressId不能为空");
+        }
+        IMOOCJSONResult checkRes = checkAddress(addressBo);
+        if(checkRes.getStatus()!=200){
+            return checkRes;
+        }
+        addressService.updateUserAddress(addressBo);
+        return IMOOCJSONResult.ok();
+    }
 }

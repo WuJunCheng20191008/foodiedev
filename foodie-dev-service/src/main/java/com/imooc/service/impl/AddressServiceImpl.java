@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class AddressServiceImpl implements AddressService {
+public class AddressServiceImpl implements AddressService{
     @Autowired
     private UserAddressMapper userAddressMapper;
     @Autowired
@@ -47,5 +47,15 @@ public class AddressServiceImpl implements AddressService {
         newAddress.setUpdatedTime(new Date());
         userAddressMapper.insert(newAddress);
 
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void updateUserAddress(AddressBo addressBo) {
+        String addressId=addressBo.getAddressId();
+        UserAddress pendingAddress=new UserAddress();
+        BeanUtils.copyProperties(addressBo,pendingAddress);
+        pendingAddress.setId(addressId);
+        pendingAddress.setUpdatedTime(new Date());
+        userAddressMapper.updateByPrimaryKeySelective(pendingAddress);
     }
 }
