@@ -58,4 +58,13 @@ public class AddressServiceImpl implements AddressService{
         pendingAddress.setUpdatedTime(new Date());
         userAddressMapper.updateByPrimaryKeySelective(pendingAddress);
     }
+
+    @Override
+    public void deleteUserAddress(String userId, String addressId) {
+        UserAddress userAddress=new UserAddress();
+        userAddress.setId(addressId);
+        userAddress.setUserId(userId);
+        userAddressMapper.delete(userAddress);
+
+    }
 }

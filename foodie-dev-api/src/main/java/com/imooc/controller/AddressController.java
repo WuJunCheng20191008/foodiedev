@@ -106,4 +106,18 @@ public class AddressController {
         addressService.updateUserAddress(addressBo);
         return IMOOCJSONResult.ok();
     }
+    @ApiOperation(value = "用户删除地址",notes = "用户删除地址",httpMethod = "POST")
+    @PostMapping("/delete")
+    public IMOOCJSONResult delete(
+            @ApiParam(name = "userId",value = "用户id",required = true)
+            @RequestParam String userId,
+            @ApiParam(name = "addressId",value = "地址id",required = true)
+            @RequestParam String addressId){
+        if(StringUtils.isBlank(userId)||StringUtils.isBlank(addressId)){
+            IMOOCJSONResult.errorMsg("");
+        }
+
+        addressService.deleteUserAddress(userId,addressId);
+        return IMOOCJSONResult.ok();
+    }
 }
