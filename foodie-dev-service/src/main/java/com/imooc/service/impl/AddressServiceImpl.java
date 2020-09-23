@@ -1,5 +1,6 @@
 package com.imooc.service.impl;
 
+import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.UserAddressMapper;
 import com.imooc.pojo.UserAddress;
 import com.imooc.pojo.bo.AddressBo;
@@ -58,13 +59,31 @@ public class AddressServiceImpl implements AddressService{
         pendingAddress.setUpdatedTime(new Date());
         userAddressMapper.updateByPrimaryKeySelective(pendingAddress);
     }
-
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void deleteUserAddress(String userId, String addressId) {
         UserAddress userAddress=new UserAddress();
         userAddress.setId(addressId);
         userAddress.setUserId(userId);
         userAddressMapper.delete(userAddress);
-
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void updateUserAddressToBeDefault(String userId, String addressId) {
+        // 查找默认地址 设置为不默认
+        UserAddress queryAddress=new UserAddress();
+        queryAddress.setUserId(userId);
+        queryAddress.setIsDefault(YesOrNo.YES.type);
+        List<UserAddress> list = userAddressMapper.select(queryAddress);
+        for (UserAddress ua:list){
+            ua.setIsDefault(YesOrNo.NO.type);
+            userAddressMapper.updateByPrimaryKeySelective(ua);
+        }
+        // 根据条件设置地址为默认地址
+        UserAddress defaultAddress=new UserAddress();
+        defaultAddress.setId(addressId);
+        defaultAddress.setUserId(userId);
+        defaultAddress.setIsDefault(YesOrNo.YES.type);
+        userAddressMapper.updateByPrimaryKeySelective(defaultAddress);
     }
 }
