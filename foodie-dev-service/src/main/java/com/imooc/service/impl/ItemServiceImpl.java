@@ -3,6 +3,7 @@ package com.imooc.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.imooc.enums.CommentLevel;
+import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.*;
 import com.imooc.pojo.*;
 import com.imooc.pojo.vo.CommentLevelCountsVO;
@@ -144,5 +145,37 @@ public class ItemServiceImpl implements ItemService {
         //把数据中的数据全部添加到list中
         Collections.addAll(specIdList,ids);
         return itemsMapperCustom.queryItemsBySpecIds(specIdList);
+    }
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public ItemsSpec queryItemSpecById(String specId) {
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public String queryItemMainImgById(String itemId) {
+        ItemsImg itemsImg=new ItemsImg();
+        itemsImg.setItemId(itemId);
+        itemsImg.setIsMain(YesOrNo.YES.type);
+        ItemsImg result = itemsImgMapper.selectOne(itemsImg);
+        return result!=null?result.getUrl():"";
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public  void decreaseItemSpecStock(String specId, Integer buyCounts) {
+        /*
+        synchronized 不适用原因：
+        1. 效率低
+        2. 做集群，不起作用
+        锁表：不适合原因：
+        1. 万一出了故障，数据库性能非常低
+         */
+        // 采用分布式锁 zookeeper，redis
+        // 目前使用乐观锁，直接使用sql语句进行更新
+        int result = itemsMapperCustom.decreaseItemSpecStock(specId, buyCounts);
+        //如果数据库操作成功，返回更新数量，否则抛出异常
+        if(result!=1){
+            throw new RuntimeException("订单创建失败，原因：库存不足");
+        }
     }
 }
