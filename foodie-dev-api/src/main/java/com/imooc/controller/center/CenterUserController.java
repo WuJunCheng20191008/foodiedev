@@ -6,6 +6,7 @@ import com.imooc.pojo.bo.center.CenterUserBo;
 import com.imooc.resource.FileUpload;
 import com.imooc.service.center.CenterUserService;
 import com.imooc.utils.CookieUtils;
+import com.imooc.utils.DateUtil;
 import com.imooc.utils.IMOOCJSONResult;
 import com.imooc.utils.JsonUtils;
 import io.swagger.annotations.Api;
@@ -63,11 +64,15 @@ public class CenterUserController extends BaseController {
                     String[] fileNameArr = fileName.split("\\.");
                     //后缀
                     String suffix = fileNameArr[fileNameArr.length - 1];
-                    //需要注意文件格式覆盖式上传 增量式：需要拼接上时间
+                    //需要注意文件格式
+                    //
+                    // 覆盖式上传 增量式：需要拼接上时间
                     String newFileName = "face-" + userId + "." + suffix;
                     //上传头像最终保存到位置
                     String finalFacePath = fileSpace + uploadPathPrefix + File.separator
                             + newFileName;
+                    // 用于提供给web服务访问的地址
+                    uploadPathPrefix += ("/" + newFileName);
                     File outFile = new File(finalFacePath);
                     if(outFile.getParentFile() != null){
                         System.out.println(outFile.getParentFile());
@@ -94,6 +99,17 @@ public class CenterUserController extends BaseController {
         } else {
             return IMOOCJSONResult.errorMsg("文件不能为空");
         }
+        //获取图片服务地址
+        String imageServerUrl = fileUpload.getImageServerUrl();
+        //由于浏览器可能存在缓存的情况，所有需要加上时间戳来保证更新后的图片可以及时刷新
+        String finalUserFaceUrl = imageServerUrl + uploadPathPrefix +
+                "?t=" + DateUtil.getCurrentDateString(DateUtil.DATE_PATTERN);
+        // 更新用户头像到数据库
+        Users userResult = centerUserService.updateUserFace(userId, finalUserFaceUrl);
+        userResult = setNullProperty(userResult);
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(userResult), true);
+        //TODO 后续会修改 增加令牌token，整合redis，分布式会话
         return IMOOCJSONResult.ok();
     }
 

@@ -11,7 +11,7 @@
 
     <artifactId>foodie-dev-service</artifactId>
     <dependencies>
-        <!-- service -> mapper -> pojo -> common -->
+        <!-- center -> mapper -> pojo -> common -->
         <dependency>
             <groupId>com.imooc</groupId>
             <artifactId>foodie-dev-mapper</artifactId>

@@ -13,7 +13,7 @@
 
     <dependencies>
         <!--
-        api -> service ->mapper -> pojo -> common
+        api -> center ->mapper -> pojo -> common
         -->
         <dependency>
             <groupId>com.imooc</groupId>
