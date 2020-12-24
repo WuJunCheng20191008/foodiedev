@@ -64,8 +64,13 @@ public class CenterUserController extends BaseController {
                     String[] fileNameArr = fileName.split("\\.");
                     //后缀
                     String suffix = fileNameArr[fileNameArr.length - 1];
+                    //防止黑客攻击 上传.sh 文件 需要判断后缀名
+                    if(!suffix.equalsIgnoreCase("png")
+                            && !suffix.equalsIgnoreCase("jpg")
+                            &&!suffix.equalsIgnoreCase("jpeg")){
+                        return IMOOCJSONResult.errorMsg("图片格式不正确!");
+                    }
                     //需要注意文件格式
-                    //
                     // 覆盖式上传 增量式：需要拼接上时间
                     String newFileName = "face-" + userId + "." + suffix;
                     //上传头像最终保存到位置
