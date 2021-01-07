@@ -2,7 +2,7 @@ package com.imooc.service.center;
 
 import com.imooc.utils.PagedGridResult;
 
-public class MyOrdersService {
+public interface MyOrdersService {
     /**
      * 查询我的订单列表
      * @param userId

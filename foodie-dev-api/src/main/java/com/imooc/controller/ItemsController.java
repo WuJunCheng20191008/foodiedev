@@ -72,7 +72,7 @@ public class ItemsController extends BaseController{
             page=1;
         }
         if(pageSize==null){
-            pageSize=COMMENT_PAGE_SIZE;
+            pageSize=COMMOM_PAGE_SIZE;
         }
         PagedGridResult grid = itemService.queryPagedComments(itemId, level, page, pageSize);
         return IMOOCJSONResult.ok(grid);
