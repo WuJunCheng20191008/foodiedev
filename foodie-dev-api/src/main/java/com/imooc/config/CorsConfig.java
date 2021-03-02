@@ -16,6 +16,8 @@ public class CorsConfig {
         CorsConfiguration config=new CorsConfiguration();
         //配置可以跨域的信息
         config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://159.75.103.199:8080");
+        config.addAllowedOrigin("http://159.75.103.199");
         //设置是否允许发送cookie信息
         config.setAllowCredentials(true);
         //设置允许请求的方式

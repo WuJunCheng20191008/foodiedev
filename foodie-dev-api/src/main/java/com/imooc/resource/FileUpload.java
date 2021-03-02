@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component //作为组件扫描
 @ConfigurationProperties(prefix = "file")//资源文件的前缀
-@PropertySource("classpath:file-upload-dev.properties")
+@PropertySource("classpath:file-upload-prod.properties")
 public class FileUpload {
     private String imageUserFaceLocation;
     private String imageServerUrl;
